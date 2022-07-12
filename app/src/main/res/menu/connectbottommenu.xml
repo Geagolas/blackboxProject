@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<!--    <item-->
+<!--        android:id="@+id/tabAddConnect"-->
+<!--        app:showAsAction="withText"-->
+<!--        android:enabled="true"-->
+<!--        android:icon="@android:drawable/ic_input_add"-->
+<!--        android:title="@string/setting_connect_add"/>-->
+
+    <item
+        android:id="@+id/tabConfirmUser"
+        app:showAsAction="withText"
+        android:enabled="true"
+        android:icon="@drawable/baseline_check_circle_black_48"
+        android:title="@string/add_user_confirm"/>
+
+<!--    <item-->
+<!--        android:id="@+id/tabModifyUser"-->
+<!--        app:showAsAction="withText"-->
+<!--        android:enabled="true"-->
+<!--        android:icon="@drawable/baseline_mode_edit_black_48"-->
+<!--        android:title="@string/add_user_confirm"/>-->
+
+<!--    <item-->
+<!--        android:id="@+id/tabDeleteUser"-->
+<!--        app:showAsAction="withText"-->
+<!--        android:enabled="true"-->
+<!--        android:icon="@drawable/baseline_delete_black_48"-->
+<!--        android:title="@string/add_user_delete"/>-->
+
+</menu>

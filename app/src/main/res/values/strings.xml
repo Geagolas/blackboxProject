@@ -1,0 +1,61 @@
+<resources>
+
+    <!--    Title String-->
+    <string name="app_name">BlackboxProject</string>
+    <string name="text_main_title">Proj_BlackBox</string>
+    <string name="Stream">Stream</string>
+    <string name="Files">Files</string>
+    <string name="Setting">Setting</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="stream_title">실시간 영상</string>
+    <string name="files_title">녹화된 영상</string>
+    <string name="setting_title">설정</string>
+    <string name="title_activity_logo">LogoActivity</string>
+    <string name="hide_tap">hideTab</string>
+
+    <!--    Navi Tab String-->
+    <string name="files_protect">Protect</string>
+    <string name="files_move">Move</string>
+    <string name="files_copy">Copy</string>
+    <string name="files_delete">Delete</string>
+    <string name="files_download">Download</string>
+
+    <!--    setting string-->
+    <string name="setting_connection">기기 연결</string>
+    <string name="setting_filemanage">파일 관리</string>
+    <string name="setting_GPS">GPS 기능</string>
+    <string name="setting_status">기기 상태 확인</string>
+    <string name="setting_config_alarm">알람 설정</string>
+    <string name="setting_connect_add">기기 추가</string>
+    <string name="conn_pi_status_string">STATUS</string>
+    <string name="gps_confirm">마커 추가</string>
+
+    <!--    setting - connection  String -->
+    <string name="add_user">기기 추가</string>
+    <string name="add_user_select">선택</string>
+    <string name="add_user_delete">삭제</string>
+    <string name="add_user_modify">수정</string>
+    <string name="add_user_confirm">확인</string>
+
+    <!--    setting - connection - adduser string-->
+    <string name="user_name">기기명</string>
+    <string name="user_ddns">DDNS</string>
+    <string name="pi_id">PI ID</string>
+    <string name="pi_pw">PI PW</string>
+    <string name="pi_sh_port">PI SSH PORT</string>
+    <string name="db_id">DB ID</string>
+    <string name="db_pw">DB PW</string>
+    <string name="db_port">DB PORT</string>
+    <string name="stream_port">STREAM PORT</string>
+    <string name="stream_id">STREAM ID</string>
+    <string name="stream_pw">STREAM PW</string>
+    <string name="webdav_port">WEBDAV PORT</string>
+    <string name="webdav_id">WEBDAV ID</string>
+    <string name="webdav_pw">WEBDAV PW</string>
+
+    <!--    etc string-->
+    <string name="start_string">부터</string>
+    <string name="end_string">까지</string>
+
+
+</resources>

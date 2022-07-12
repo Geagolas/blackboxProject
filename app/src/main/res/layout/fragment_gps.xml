@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:tag="gps"
+    tools:context=".setting.gps.GpsFragment" >
+
+    <TextView
+        android:id="@+id/textTitleGps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/orange_500"
+        android:gravity="center_horizontal"
+        android:padding="8dp"
+        android:text="@string/setting_GPS"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
+    <RelativeLayout
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+    </RelativeLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/gpsBottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/orange_200"
+        app:itemBackground="@color/orange_200"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
+        app:menu="@menu/gpsbottommenu"
+        tools:targetApi="n_mr1" />
+</LinearLayout>

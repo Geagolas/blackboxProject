@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/tabHide"
+        android:checkable="false"
+        android:checked="true"
+        android:enabled="false"
+        android:title="@string/hide_tap"
+        android:visible="false"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/tabStream"
+        android:icon="@drawable/baseline_videocam_black_48"
+        android:title="@string/Stream"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/tabFiles"
+        android:icon="@drawable/baseline_play_circle_filled_black_48"
+        android:title="@string/Files"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/tabSetting"
+        android:icon="@drawable/baseline_settings_black_48"
+        android:title="@string/Setting"
+        app:showAsAction="ifRoom" />
+</menu>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/tabProtect"
+        android:enabled="true"
+        android:icon="@drawable/baseline_lock_black_48"
+        android:title="@string/files_protect"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/tabDownload"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_arrow_circle_down_24"
+        android:title="@string/files_download"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/tabDelete"
+        android:enabled="true"
+        android:icon="@drawable/baseline_delete_forever_black_48"
+        android:title="@string/files_delete"
+        app:showAsAction="ifRoom" />
+
+</menu>
