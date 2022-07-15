@@ -3,17 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Geagolas/AndroidStudioProjects/BlackboxProject_0710/BlackboxProject/app/src/main/res/layout/activity_gpsactivity.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/Geagolas/AndroidStudioProjects/BlackboxProject_0710/BlackboxProject/app/src/main/res/layout/activity_main.xml" value="0.223731884057971" />
+        <entry key="..\:/Users/Geagolas/AndroidStudioProjects/BlackboxProject_0710/BlackboxProject/app/src/main/res/layout/filemanagecardview.xml" value="0.24635416666666668" />
+        <entry key="..\:/Users/Geagolas/AndroidStudioProjects/BlackboxProject_0710/BlackboxProject/app/src/main/res/layout/filewebdavcardview.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/Geagolas/AndroidStudioProjects/BlackboxProject_0710/BlackboxProject/app/src/main/res/layout/fragment_add_user.xml" value="0.223731884057971" />
-        <entry key="..\:/Users/Geagolas/AndroidStudioProjects/BlackboxProject_0710/BlackboxProject/app/src/main/res/layout/fragment_file_manage.xml" value="0.24635416666666668" />
-        <entry key="..\:/Users/Geagolas/AndroidStudioProjects/BlackboxProject_0710/BlackboxProject/app/src/main/res/layout/fragment_files.xml" value="0.24635416666666668" />
+        <entry key="..\:/Users/Geagolas/AndroidStudioProjects/BlackboxProject_0710/BlackboxProject/app/src/main/res/layout/fragment_file_manage.xml" value="0.22938894277400582" />
+        <entry key="..\:/Users/Geagolas/AndroidStudioProjects/BlackboxProject_0710/BlackboxProject/app/src/main/res/layout/fragment_files.xml" value="0.2302823758519961" />
         <entry key="..\:/Users/Geagolas/AndroidStudioProjects/BlackboxProject_0710/BlackboxProject/app/src/main/res/layout/fragment_gps.xml" value="0.223731884057971" />
         <entry key="..\:/Users/Geagolas/AndroidStudioProjects/BlackboxProject_0710/BlackboxProject/app/src/main/res/layout/fragment_main.xml" value="0.1" />
         <entry key="..\:/Users/Geagolas/AndroidStudioProjects/BlackboxProject_0710/BlackboxProject/app/src/main/res/layout/fragment_setting.xml" value="0.223731884057971" />
         <entry key="..\:/Users/Geagolas/AndroidStudioProjects/BlackboxProject_0710/BlackboxProject/app/src/main/res/layout/fragment_status.xml" value="0.223731884057971" />
+        <entry key="..\:/Users/Geagolas/AndroidStudioProjects/BlackboxProject_0710/BlackboxProject/app/src/main/res/layout/fragment_stream.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/Geagolas/AndroidStudioProjects/BlackboxProject_0710/BlackboxProject/app/src/main/res/menu/adduserbottommenu.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/Geagolas/AndroidStudioProjects/BlackboxProject_0710/BlackboxProject/app/src/main/res/menu/connectbottommenu.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/Geagolas/AndroidStudioProjects/BlackboxProject_0710/BlackboxProject/app/src/main/res/menu/filesbottommenu.xml" value="0.24635416666666668" />
+        <entry key="..\:/Users/Geagolas/AndroidStudioProjects/BlackboxProject_0710/BlackboxProject/app/src/main/res/menu/gpsbackmenu.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/Geagolas/AndroidStudioProjects/BlackboxProject_0710/BlackboxProject/app/src/main/res/menu/gpsbottommenu.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/Geagolas/AndroidStudioProjects/BlackboxProject_0710/BlackboxProject/app/src/main/res/menu/mainbottommenu.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/Geagolas/AndroidStudioProjects/BlackboxProject_0710/BlackboxProject/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2555" />

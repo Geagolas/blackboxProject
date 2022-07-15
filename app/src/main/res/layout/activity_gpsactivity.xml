@@ -5,11 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:tag="gps"
-    tools:context=".setting.gps.GpsFragment" >
+    tools:context=".GPSActivity">
 
     <TextView
-        android:id="@+id/textTitleGps"
+        android:id="@+id/textTitleGps2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/orange_500"
@@ -38,5 +37,4 @@
         app:itemTextColor="@color/white"
         app:menu="@menu/gpsbottommenu"
         tools:targetApi="n_mr1" />
-
 </LinearLayout>

@@ -54,6 +54,7 @@ public class FileAdapterFM extends RecyclerView.Adapter<FileAdapterFM.FileViewHo
         }
     }
 
+
     public void setOnItemClickListener(OnFileListClickListener listener){
         this.listener = listener;
     }
@@ -84,10 +85,10 @@ public class FileAdapterFM extends RecyclerView.Adapter<FileAdapterFM.FileViewHo
             textFileName.setText(item.fileName);
             textDate.setText(item.time.toLocalDate().toString());
             textTime.setText(item.time.toLocalTime().toString());
-            textSize.setText(item.fileSize+"B");
+            textSize.setText(item.fileSizeHuman);
 
-            if(item.protection) protect.setVisibility(View.VISIBLE);
-            else protect.setVisibility(View.INVISIBLE);
+            if(item.protection) protect.setImageResource(R.drawable.baseline_lock_black_48);
+            else protect.setImageResource(R.drawable.baseline_lock_open_black_48);
 
             if(item.selected) camera.setImageResource(R.drawable.baseline_check_circle_black_48);
             else camera.setImageResource(R.drawable.baseline_video_camera_back_black_48);

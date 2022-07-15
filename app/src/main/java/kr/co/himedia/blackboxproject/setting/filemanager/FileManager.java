@@ -37,10 +37,10 @@ public class FileManager {
     private static String motionPath = "/home/" + USER + "/motion/";
     public ArrayList<FileFM> selectedFileList = new ArrayList<>();
 
-    private static String lsCommand = "ls -lh " + motionPath + SELECT_ALL_MOVIE_FILE;
+    private static String lsCommand = "ls -l " + motionPath + SELECT_ALL_MOVIE_FILE;
     private static String rmCommand = "";
     private static String chmodCommad = "";
-    private static String strlsPattern = "([rwe-]{10})\\+?\\s+\\d+\\s+\\w+\\s+\\w+\\s+([0-9.]+\\w)\\s.*"+motionPath+"(\\w*\\.mkv)";
+    private static String strlsPattern = "([rwe-]{10})\\+?\\s+\\d+\\s+\\w+\\s+\\w+\\s+(\\d+)\\s.*"+motionPath+"(\\w*\\.mkv)";
     private static String strHostIp = "";
     private static final String DELETE_CMD = "sudo rm -f ";
     private static final String CHMOD_CMD = "sudo chmod ";
@@ -72,7 +72,7 @@ public class FileManager {
         while(m.find()){
             Log.d("testPara", "matcher result :"+m.group(1));
             boolean protect = (m.group(1).charAt(5)=='-') ? true : false;
-            arrayList.add(new FileFM(protect, m.group(2), m.group(3)));
+            arrayList.add(new FileFM(protect, Long.parseLong(m.group(2)), m.group(3)));
             Log.d("testPara", "protect : "+protect);
         }
         Log.d("testPara","Array size : "+arrayList.size());

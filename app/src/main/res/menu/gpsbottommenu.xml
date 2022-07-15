@@ -9,4 +9,12 @@
         android:title="@string/gps_confirm"
         app:showAsAction="withText" />
 
+    <item
+        android:id="@+id/tabRemoveMarker"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_delete"
+        android:title="@string/gps_delete"
+        app:showAsAction="withText" />
+
+
 </menu>

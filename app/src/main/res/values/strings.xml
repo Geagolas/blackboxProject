@@ -29,6 +29,7 @@
     <string name="setting_connect_add">기기 추가</string>
     <string name="conn_pi_status_string">STATUS</string>
     <string name="gps_confirm">마커 추가</string>
+    <string name="gps_delete">마커 삭제</string>
 
     <!--    setting - connection  String -->
     <string name="add_user">기기 추가</string>
@@ -56,6 +57,10 @@
     <!--    etc string-->
     <string name="start_string">부터</string>
     <string name="end_string">까지</string>
+    <string name="index_asc">오름차순▼</string>
+    <string name="index_desc">내림차순▲</string>
+    <string name="text_time">Time : </string>
+    <string name="text_size">Size : </string>
 
 
 </resources>

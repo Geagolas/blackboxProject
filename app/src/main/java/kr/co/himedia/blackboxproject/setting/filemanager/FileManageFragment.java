@@ -23,17 +23,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.snackbar.Snackbar;
 
 import kr.co.himedia.blackboxproject.MainActivity;
 import kr.co.himedia.blackboxproject.R;
+import kr.co.himedia.blackboxproject.files.FileWebDav;
 import kr.co.himedia.blackboxproject.files.VideoActivity;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -48,10 +52,10 @@ public class FileManageFragment extends Fragment {
     private Context mContext;
     private SwipeRefreshLayout swipeRefreshLayoutFM;
 
-    private static String dns = MainActivity.currentUser.getDns();
-    private static String webDavId = MainActivity.currentUser.getWebdavid();
-    private static String webDavPw = MainActivity.currentUser.getWebdavpw();
-    private static String webDavPort = MainActivity.currentUser.getWebdav();
+    private static final String dns = MainActivity.currentUser.getDns();
+    private static final String webDavId = MainActivity.currentUser.getWebdavid();
+    private static final String webDavPw = MainActivity.currentUser.getWebdavpw();
+    private static final String webDavPort = MainActivity.currentUser.getWebdav();
     static String url = dns.replace("://","://"+webDavId+":"+webDavPw+"@")+":"+webDavPort+"/";
     static String outputPath = Environment.getExternalStoragePublicDirectory(
             Environment.DIRECTORY_DOWNLOADS+"/motion")+"/";
@@ -66,6 +70,8 @@ public class FileManageFragment extends Fragment {
         mContext = getActivity().getApplicationContext();
         fileManager.getFileList();
         fileFMArrayList = fileManager.setArrayList();
+        ToggleButton toggleButtonTime = view.findViewById(R.id.toggleBtnTime);
+        ToggleButton toggleButtonSize = view.findViewById(R.id.toggleBtnSize);
 
         swipeRefreshLayoutFM = view.findViewById(R.id.swipeLayoutFM);
         recyclerView = view.findViewById(R.id.recyclerViewFM);
@@ -93,6 +99,7 @@ public class FileManageFragment extends Fragment {
         
         swipeRefreshLayoutFM.setOnRefreshListener(()->{
             onCreate(savedInstanceState);
+            adapter.notifyDataSetChanged();
             swipeRefreshLayoutFM.setRefreshing(false);
         });
 
@@ -102,10 +109,10 @@ public class FileManageFragment extends Fragment {
                 //Protect 탭을 선택
                 //SeletedFileList에 파일 목록을 추가하고 FileManager에서 처리 
                 case R.id.tabProtect:
-                    Snackbar.make(view,"작업을 시작합니다.\n 조금만 기다려주세요.",Snackbar.LENGTH_SHORT).show();
                     for (FileFM fileFM : selectedFileList){
-                        if (fileFM.protection) fileFM.protection = false;
-                        else fileFM.protection = true;
+                        int changedPos = adapter.adapterFileList.indexOf(fileFM);
+                        fileFM.protection = !fileFM.protection;
+                        adapter.notifyItemChanged(changedPos);
                         Log.d("testPara", "isProtection : "+fileFM.fileName+fileFM.protection);
                     }
                     fileManager.setProtectFiles(selectedFileList);
@@ -115,40 +122,61 @@ public class FileManageFragment extends Fragment {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    onCreate(savedInstanceState);
-                    adapter.notifyDataSetChanged();
                     Snackbar.make(view,selectedFileList.size()+" 개 파일의 보호 상태가 변경 되었습니다.",Snackbar.LENGTH_SHORT).show();
                     return true;
                     
                     //download탭을 클릭시
                 //SelectedFileList에 파일 목록을 추가하고 URLDownloading으로 URL을 만들어서 호출.
                 case R.id.tabDownload:
-                    Snackbar.make(view,"다운로드를 시작합니다.\n 조금만 기다려주세요.",Snackbar.LENGTH_SHORT).show();
                     Log.d("testPara", "download selected size : "+selectedFileList.size());
                     for(FileFM fileFM : selectedFileList){
                         URLDownloading(Uri.parse(url+fileFM.fileName),fileFM.fileName);
                     }
-                    Snackbar.make(view,selectedFileList.size()+" 개의 파일이 다운로드 완료.",Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(view,selectedFileList.size()+" 개의 파일을 다운로드 시작.",Snackbar.LENGTH_SHORT).show();
                     return true;
                 
                     //Delete 탭을 클릭시
                 //SelectedFileList에 파일 목록을 추가하고 FileManager로 전달.
                 case R.id.tabDelete:
-                    Snackbar.make(view,"작업을 시작합니다.\n 조금만 기다려주세요.",Snackbar.LENGTH_SHORT).show();
+//                    Snackbar.make(view,"작업을 시작합니다.\n 조금만 기다려주세요.",Snackbar.LENGTH_SHORT).show();
                     Log.d("testPara", "delete selected size: "+selectedFileList.size());
+                    for(FileFM fileFM : selectedFileList){
+                        adapter.notifyItemRemoved(adapter.adapterFileList.indexOf(fileFM));
+                    }
                     fileManager.setDeleteFiles(selectedFileList);
                     try {
                         Thread.sleep(200);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    onCreate(savedInstanceState);
-                    adapter.notifyDataSetChanged();
                     Snackbar.make(view,FileManager.deleteListSize + " 개의 파일이 삭제 되었습니다.",Snackbar.LENGTH_SHORT).show();
                     return true;
             }
             return false;
         });
+        toggleButtonTime.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked){
+                Comparator<FileFM> desc = (o1, o2) -> o2.time.compareTo(o1.time);
+                adapter.adapterFileList.sort(desc);
+                adapter.notifyDataSetChanged();
+            }else {
+                Comparator<FileFM> asc = (o1, o2) -> o1.time.compareTo(o2.time);
+                adapter.adapterFileList.sort(asc);
+                adapter.notifyDataSetChanged();
+            }
+        });
+        toggleButtonSize.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked){
+                Comparator<FileFM> desc = (o1,o2)-> Long.compare(o2.fileSize,o1.fileSize);
+                adapter.adapterFileList.sort(desc);
+                adapter.notifyDataSetChanged();
+            }else {
+                Comparator<FileFM> asc = (o1, o2) -> Long.compare(o1.fileSize,o2.fileSize);
+                adapter.adapterFileList.sort(asc);
+                adapter.notifyDataSetChanged();
+            }
+        });
+
         return view;
     }
 
@@ -205,7 +233,7 @@ public class FileManageFragment extends Fragment {
     }
     
     //전달 받은 Queue로 Download Manager에서 Receiver가 다운로드
-    private BroadcastReceiver downloadCompleteReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver downloadCompleteReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             long reference = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);

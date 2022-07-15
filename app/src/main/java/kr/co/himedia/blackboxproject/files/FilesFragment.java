@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.ToggleButton;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -24,6 +26,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import kr.co.himedia.blackboxproject.MainActivity;
 import kr.co.himedia.blackboxproject.R;
@@ -32,6 +35,11 @@ import kr.co.himedia.blackboxproject.R;
 public class FilesFragment extends Fragment {
 
     private static final String TAG="FileFragment";
+
+    private static final int INDEX_ASC = 0;
+    private static final int INDEX_DESC = 1;
+    private static int toggleClick = 0;
+
     public ArrayList<FileWebDav> webdavLists = new ArrayList<>();
     private SwipeRefreshLayout swipeRefreshLayoutFiles;
 
@@ -51,6 +59,7 @@ public class FilesFragment extends Fragment {
         Log.d("testParameter", Thread.currentThread() + "adapter size : " + adapter.adapterFileList.size());
 
         recyclerView.setAdapter(adapter);
+
         swipeRefreshLayoutFiles.setOnRefreshListener(() -> {
             onCreate(savedInstanceState);
             swipeRefreshLayoutFiles.setRefreshing(false);
@@ -60,8 +69,21 @@ public class FilesFragment extends Fragment {
         adapter.setOnItemClickListener((holder, view1, position) -> {
             FileWebDav item = adapter.getItem(position);
             Intent intent = new Intent(getActivity().getApplicationContext(), VideoActivity.class).putExtra("videoURL",getWebdavUrl()+"/"+item.fileName);
-                startActivity(intent);
+            startActivity(intent);
             });
+        ToggleButton toggleButton = view.findViewById(R.id.btnToggleFiles);
+        toggleButton.setOnCheckedChangeListener((CompoundButton.OnCheckedChangeListener) (buttonView, isChecked) -> {
+            if(isChecked){
+                Comparator<FileWebDav> desc = (o1, o2) -> o2.time.compareTo(o1.time);
+                adapter.adapterFileList.sort(desc);
+                adapter.notifyDataSetChanged();
+            }else {
+                Comparator<FileWebDav> asc = (o1, o2) -> o1.time.compareTo(o2.time);
+                adapter.adapterFileList.sort(asc);
+                adapter.notifyDataSetChanged();
+            }
+        });
+
         return view;
     }
 
