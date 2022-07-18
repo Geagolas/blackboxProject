@@ -10,6 +10,13 @@
         app:showAsAction="withText" />
 
     <item
+        android:id="@+id/tabSaveMarker"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="@string/gps_save_pos"
+        app:showAsAction="withText" />
+
+    <item
         android:id="@+id/tabRemoveMarker"
         android:enabled="true"
         android:icon="@android:drawable/ic_delete"

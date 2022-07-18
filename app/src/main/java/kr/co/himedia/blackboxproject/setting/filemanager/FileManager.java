@@ -70,12 +70,12 @@ public class FileManager {
         Matcher m = Pattern.compile(strlsPattern).matcher(stringBuffer);
         ArrayList<FileFM> arrayList = new ArrayList<>();
         while(m.find()){
-            Log.d("testPara", "matcher result :"+m.group(1));
+            Log.d(TAG, "matcher result :"+m.group(1));
             boolean protect = (m.group(1).charAt(5)=='-') ? true : false;
             arrayList.add(new FileFM(protect, Long.parseLong(m.group(2)), m.group(3)));
-            Log.d("testPara", "protect : "+protect);
+            Log.d(TAG, "protect : "+protect);
         }
-        Log.d("testPara","Array size : "+arrayList.size());
+        Log.d(TAG,"Array size : "+arrayList.size());
         isWorkDone = true;
         return arrayList;
     }
@@ -91,7 +91,7 @@ public class FileManager {
             if(!fileFM.protection) rmCommand += motionPath+fileFM.fileName+" ";
             deleteListSize++;
         }
-        Log.d("testPara",rmCommand);
+        Log.d(TAG,rmCommand);
         deleteSSH.start();
         try {
             deleteSSH.join();
@@ -113,7 +113,7 @@ public class FileManager {
         selectedFileList = arrayList;
         int[] cnt = {0,0};
         for(FileFM fileFM : selectedFileList) {
-            Log.d("testPara", "before protection : "+fileFM.protection);
+            Log.d(TAG, "before protection : "+fileFM.protection);
             if (fileFM.protection) {
                 strProtect += motionPath + fileFM.fileName + " ";
                 cnt[0]++;
@@ -122,14 +122,14 @@ public class FileManager {
                 cnt[1]++;
             }
             fileFM.protection = !fileFM.protection;
-            Log.d("testPara", "after protection : "+fileFM.protection);
-            Log.d("testPara", "strProtect : "+strProtect);
-            Log.d("testPara", "strUnProtect : "+strUnProtect);
+            Log.d(TAG, "after protection : "+fileFM.protection);
+            Log.d(TAG, "strProtect : "+strProtect);
+            Log.d(TAG, "strUnProtect : "+strUnProtect);
         }
         if(cnt[0]!=0 && cnt[1]!=0) chmodCommad = strProtect + " | " + strUnProtect;
         if(cnt[0]==0 && cnt[1]!=0) chmodCommad = strUnProtect;
         if(cnt[0]!=0 && cnt[1]==0) chmodCommad = strProtect;
-        Log.d("testPara", "chmodCommand method() : "+chmodCommad);
+        Log.d(TAG, "chmodCommand method() : "+chmodCommad);
 
         protectSSH.start();
         try {
@@ -147,28 +147,28 @@ public class FileManager {
         @RequiresApi(api = Build.VERSION_CODES.O)
         public void run(){
             try{
-                Log.d("testPara","Conn Thread Start");
+                Log.d(TAG,"Conn Thread Start");
                 Properties config = new Properties();
                 config.put("StrictHostKeyChecking", "no");
                 JSch jSch = new JSch();
-                Log.d("testPara","GetListSSH session strHostIP: "+strHostIp);
+                Log.d(TAG,"GetListSSH session strHostIP: "+strHostIp);
                 session = jSch.getSession(USER,strHostIp,Integer.parseInt(PI_SSH_PORT));
                 Thread.sleep(300);
-                Log.d("testPara","GetListSSH session : "+session.getUserName());
-                Log.d("testPara","GetListSSH session : "+session.getHost()+":"+session.getPort());
+                Log.d(TAG,"GetListSSH session : "+session.getUserName());
+                Log.d(TAG,"GetListSSH session : "+session.getHost()+":"+session.getPort());
                 session.setPassword(PASSWORD);
                 session.setConfig(config);
                 session.connect();
-                Log.d("testPara","session isConnected :"+session.isConnected());
+                Log.d(TAG,"session isConnected :"+session.isConnected());
                 channel = session.openChannel("exec");
 
                 ((ChannelExec)channel).setCommand(lsCommand);
-                Log.d("testPara", "list Command : "+lsCommand);
+                Log.d(TAG, "list Command : "+lsCommand);
                 ((ChannelExec)channel).setErrStream(System.err);
 
                 InputStream inputStream=channel.getInputStream();
                 channel.connect();
-                Log.d("testPara","channel isConnected :"+channel.isConnected());
+                Log.d(TAG,"channel isConnected :"+channel.isConnected());
 
                 byte[] tmp = new byte[tmpSize];
                 while (true){
@@ -177,16 +177,16 @@ public class FileManager {
                         if(i<0) break;
                         stringBuffer = new String(tmp,0,tmpSize);
                     }if(!channel.isConnected()){
-                        Log.d("testPara","exit-status : "+channel.getExitStatus());
+                        Log.d(TAG,"exit-status : "+channel.getExitStatus());
                         break;
                     }
                     Thread.sleep(300);
                     channel.disconnect();
-                    Log.d("testPara","Exit channel is connected : "+channel.isConnected());
+                    Log.d(TAG,"Exit channel is connected : "+channel.isConnected());
                     session.disconnect();
-                    Log.d("testPara","Exit session is connected : "+session.isConnected());
+                    Log.d(TAG,"Exit session is connected : "+session.isConnected());
                 }
-                Log.d("testPara","stringBuffer : "+stringBuffer);
+                Log.d(TAG,"stringBuffer : "+stringBuffer);
             }catch (Exception e){e.printStackTrace();}
         }
     }
@@ -196,7 +196,7 @@ public class FileManager {
         @RequiresApi(api = Build.VERSION_CODES.O)
         public void run(){
             try{
-                Log.d("testPara","delete Thread Start");
+                Log.d(TAG,"delete Thread Start");
                 Properties config = new Properties();
                 config.put("StrictHostKeyChecking", "no");
                 JSch jSch = new JSch();
@@ -205,22 +205,22 @@ public class FileManager {
                 session.setPassword(PASSWORD);
                 session.setConfig(config);
                 session.connect();
-                Log.d("testPara","session isConnected :"+session.isConnected());
+                Log.d(TAG,"session isConnected :"+session.isConnected());
                 channel = session.openChannel("exec");
 
                 ((ChannelExec)channel).setCommand(rmCommand);
-                Log.d("testPara", "rm Command : "+rmCommand);
+                Log.d(TAG, "rm Command : "+rmCommand);
                 ((ChannelExec)channel).setErrStream(System.err);
 
                 InputStream inputStream=channel.getInputStream();
                 channel.connect();
                 Thread.sleep(200);
-                Log.d("testPara","channel isConnected :"+channel.isConnected());
+                Log.d(TAG,"channel isConnected :"+channel.isConnected());
 
                 channel.disconnect();
-                Log.d("testPara","Exit channel is connected : "+channel.isConnected());
+                Log.d(TAG,"Exit channel is connected : "+channel.isConnected());
                 session.disconnect();
-                Log.d("testPara","Exit session is connected : "+session.isConnected());
+                Log.d(TAG,"Exit session is connected : "+session.isConnected());
 
             }catch (Exception e){e.printStackTrace();}
         }
@@ -231,7 +231,7 @@ public class FileManager {
         @RequiresApi(api = Build.VERSION_CODES.O)
         public void run(){
             try{
-                Log.d("testPara","chmod Thread Start");
+                Log.d(TAG,"chmod Thread Start");
                 Properties config = new Properties();
                 config.put("StrictHostKeyChecking", "no");
                 JSch jSch = new JSch();
@@ -240,22 +240,22 @@ public class FileManager {
                 session.setPassword(PASSWORD);
                 session.setConfig(config);
                 session.connect();
-                Log.d("testPara","session isConnected :"+session.isConnected());
+                Log.d(TAG,"session isConnected :"+session.isConnected());
                 channel = session.openChannel("exec");
 
                 ((ChannelExec)channel).setCommand(chmodCommad);
-                Log.d("testPara", "chmod Command : "+chmodCommad);
+                Log.d(TAG, "chmod Command : "+chmodCommad);
                 ((ChannelExec)channel).setErrStream(System.err);
 
                 InputStream inputStream=channel.getInputStream();
                 channel.connect();
                 Thread.sleep(200);
-                Log.d("testPara","channel isConnected :"+channel.isConnected());
+                Log.d(TAG,"channel isConnected :"+channel.isConnected());
 
                 channel.disconnect();
-                Log.d("testPara","Exit channel is connected : "+channel.isConnected());
+                Log.d(TAG,"Exit channel is connected : "+channel.isConnected());
                 session.disconnect();
-                Log.d("testPara","Exit session is connected : "+session.isConnected());
+                Log.d(TAG,"Exit session is connected : "+session.isConnected());
 
             }catch (Exception e){e.printStackTrace();}
         }
@@ -267,14 +267,14 @@ public class FileManager {
             InetAddress inetAddress[] = null;
             try {
                  inetAddress = InetAddress.getAllByName(MainActivity.currentUser.getDns().replace("http://",""));
-                Log.d("testPara","getHostIP() strHostIP: "+strHostIp);
+                Log.d(TAG,"getHostIP() strHostIP: "+strHostIp);
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             }
             for(int i=0; i<inetAddress.length ; i++){
                 strHostIp = inetAddress[i].getHostAddress();
             }
-            Log.d("testParaHostIP",strHostIp);
+            Log.d(TAG,strHostIp);
         });
         getHostIpThread.start();
 

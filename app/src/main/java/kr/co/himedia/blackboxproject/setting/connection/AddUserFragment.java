@@ -114,14 +114,14 @@ public class AddUserFragment extends Fragment {
             Properties prop = new Properties();
             prop.setProperty("lastUserName", user.getName());
             prop.store(fileOutputStream,"LastUser Properties");
-            Log.d("testPara","writeLastUser() Last User Write done");
+            Log.d(TAG,"writeLastUser() Last User Write done");
         }catch (IOException eio){eio.printStackTrace();}
     }
 
     //property로 저장된 User정보를 currentUser로 불러오는 Methode
     private static String readLastUser(String packageName){
         File file = new File(Environment.getDataDirectory()+"/data/"+packageName, "lastuser.properties");
-        Log.d("testParaAU","readLastUser() path : "+file.getPath());
+        Log.d(TAG,"readLastUser() path : "+file.getPath());
         String lastUserName = null;
 
         if (!file.exists()) {
@@ -134,7 +134,7 @@ public class AddUserFragment extends Fragment {
                 Properties prop = new Properties();
                 prop.load(fileInputStream);
                 lastUserName = prop.getProperty("lastUserName");
-                Log.d("testPara", "readLastUser() property read Done : "+lastUserName);
+                Log.d(TAG, "readLastUser() property read Done : "+lastUserName);
             } catch (IOException eio) {
                 eio.printStackTrace();
             }

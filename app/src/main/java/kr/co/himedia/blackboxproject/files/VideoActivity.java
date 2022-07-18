@@ -61,7 +61,7 @@ public class VideoActivity extends AppCompatActivity {
         videoView.setMediaController(mc);
         videoView.start();
 
-        Log.d("testPara","video url : "+url.toString());
+        Log.d(TAG,"video url : "+url.toString());
     }
 
 }

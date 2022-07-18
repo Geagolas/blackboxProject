@@ -36,10 +36,6 @@ public class FilesFragment extends Fragment {
 
     private static final String TAG="FileFragment";
 
-    private static final int INDEX_ASC = 0;
-    private static final int INDEX_DESC = 1;
-    private static int toggleClick = 0;
-
     public ArrayList<FileWebDav> webdavLists = new ArrayList<>();
     private SwipeRefreshLayout swipeRefreshLayoutFiles;
 
@@ -48,7 +44,7 @@ public class FilesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_files, container, false);
         swipeRefreshLayoutFiles = view.findViewById(R.id.swipeRefreshFiles);
 
-        Log.d("testPara", "Frag webdav size : " + webdavLists.size());
+        Log.d(TAG, "Frag webdav size : " + webdavLists.size());
 
         RecyclerView recyclerView = view.findViewById(R.id.fileRecyclerView);
         LinearLayoutManager layoutManager =
@@ -56,7 +52,7 @@ public class FilesFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         FileAdapterWebDav adapter = new FileAdapterWebDav(webdavLists, getContext());
 
-        Log.d("testParameter", Thread.currentThread() + "adapter size : " + adapter.adapterFileList.size());
+        Log.d(TAG, Thread.currentThread() + "adapter size : " + adapter.adapterFileList.size());
 
         recyclerView.setAdapter(adapter);
 
@@ -90,9 +86,9 @@ public class FilesFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("testPara","onCreate Start");
+        Log.d(TAG,"onCreate Start");
         Thread setFileThread = new Thread(this::setFileLists);
-        Log.d("testPara","Thread Start : "+Thread.currentThread());
+        Log.d(TAG,"Thread Start : "+Thread.currentThread());
         try {
             setFileThread.join();
             setFileThread.start();
@@ -119,21 +115,20 @@ public class FilesFragment extends Fragment {
                             .timeout(600);
                     setConnection(conn);
 
-                    Log.d("testPara","conn status : "+conn.request());
+                    Log.d(TAG,"conn status : "+conn.request());
 
                     Document doc = conn.get();
                     Elements links = doc.select("a[href]");
                     for(Element href : links){
                         if(href.text().contains(".mkv")) {
                             webdavLists.add(new FileWebDav(href.text()));
-                            Log.d("testParaJsoup",href.text());
+                            Log.d(TAG,"href tag : "+href.text());
                         }
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
-                    Log.d("Jsoup","IOException");
                 }
-                Log.d("testParameter",Thread.currentThread()+"setFileList size : "+webdavLists.size());
+                Log.d(TAG,Thread.currentThread()+"setFileList size : "+webdavLists.size());
             }
         }.start();
     }
@@ -145,7 +140,7 @@ public class FilesFragment extends Fragment {
         String webdavPw = MainActivity.currentUser.getWebdavpw();
         String webdavPort = MainActivity.currentUser.getWebdav();
         String webdavURL = "http://"+webdavId+":"+webdavPw+"@"+webdavHost+":"+webdavPort;
-        Log.d("testParaDAV","get Webdavurl() : "+webdavURL);
+        Log.d(TAG,"get Webdavurl() : "+webdavURL);
         return webdavURL;
     }
 

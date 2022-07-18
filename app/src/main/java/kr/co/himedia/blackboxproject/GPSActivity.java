@@ -64,7 +64,7 @@ public class GPSActivity extends AppCompatActivity implements MapView.CurrentLoc
                 new MapView.POIItemEventListener() {
                     @Override
                     public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
-                        Log.d("testParaGPS","POI selected() called");
+                        Log.d(TAG,"POI selected() called");
                         AlertDialog.Builder dBuilder = new AlertDialog.Builder(GPSActivity.this)
                                 .setTitle("마커")
                                 .setMessage("무엇을 하시겠습니까/?")
@@ -89,7 +89,7 @@ public class GPSActivity extends AppCompatActivity implements MapView.CurrentLoc
                     @Override
                     public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
                         writeLastMarkerPos(mapPOIItem,packageName);
-                        Log.d("testParaGPS","onDraggablePOIItemMoved : "+mapPoint.getMapPointGeoCoord().latitude +", "+mapPoint.getMapPointGeoCoord().longitude);
+                        Log.d(TAG,"onDraggablePOIItemMoved : "+mapPoint.getMapPointGeoCoord().latitude +", "+mapPoint.getMapPointGeoCoord().longitude);
                     }
                 });
         mapView.setCalloutBalloonAdapter(new CalloutBalloonAdapter() {
@@ -129,7 +129,7 @@ public class GPSActivity extends AppCompatActivity implements MapView.CurrentLoc
         gpsBottomBar.setOnItemSelectedListener(item -> {
             if(item.getItemId()==R.id.tabAddMarker){
                 currentMapPoint = mapView.getMapCenterPoint();
-//                Log.d("testParaGPS","current coord : "+currentMapPoint.getMapPointGeoCoord().latitude+", "+currentMapPoint.getMapPointGeoCoord().longitude);
+//                Log.d(TAG,"current coord : "+currentMapPoint.getMapPointGeoCoord().latitude+", "+currentMapPoint.getMapPointGeoCoord().longitude);
                 try{
                     MapPOIItem findMarker = mapView.findPOIItemByTag(0);
                     if(findMarker!=null) mapView.removePOIItem(findMarker);
@@ -163,14 +163,14 @@ public class GPSActivity extends AppCompatActivity implements MapView.CurrentLoc
 
     @Override
     public void onCurrentLocationUpdate(MapView mapView, MapPoint mapPoint, float v) {
-        Log.d("testParaGPS","onCurrentLocationUpdate() start");
+        Log.d(TAG,"onCurrentLocationUpdate() start");
         MapPoint.GeoCoordinate mapPointGeo = mapPoint.getMapPointGeoCoord();
         MapPoint.mapPointWithGeoCoord(mapPointGeo.latitude, mapPointGeo.longitude);
         currentMapPoint = MapPoint.mapPointWithGeoCoord(mapPointGeo.latitude, mapPointGeo.longitude);
         mapView.setMapCenterPoint(currentMapPoint, true);
         currentLat = mapPointGeo.latitude;
         currentLng = mapPointGeo.longitude;
-        Log.d("testParaGPS","position : "+currentLat+", "+currentLng);
+        Log.d(TAG,"position : "+currentLat+", "+currentLng);
     }
     private static void writeLastMarkerPos(MapPOIItem marker, String packageName){
         File file = new File(Environment.getDataDirectory()+"/data/"+packageName,"lastpos.properties");
@@ -185,18 +185,18 @@ public class GPSActivity extends AppCompatActivity implements MapView.CurrentLoc
             prop.setProperty("lastLng", Double.toString(marker.getMapPoint().getMapPointGeoCoord().longitude));
 
             prop.store(fileOutputStream,"LastMarkerPoint Properties");
-            Log.d("testParaGPS","writeLastMarkerPos() marker"+marker.getMapPoint().getMapPointGeoCoord().latitude+" , "+marker.getMapPoint().getMapPointGeoCoord().longitude);
-            Log.d("testParaGPS","writeLastMarkerPos() property"+prop.getProperty("lastLat")+" , "+prop.getProperty("lastLng"));
+            Log.d(TAG,"writeLastMarkerPos() marker"+marker.getMapPoint().getMapPointGeoCoord().latitude+" , "+marker.getMapPoint().getMapPointGeoCoord().longitude);
+            Log.d(TAG,"writeLastMarkerPos() property"+prop.getProperty("lastLat")+" , "+prop.getProperty("lastLng"));
         }catch (IOException eio){eio.printStackTrace();}
     }
     private static MapPoint.GeoCoordinate readLastMarkerPos(String packageName){
         File file = new File(Environment.getDataDirectory()+"/data/"+packageName, "lastpos.properties");
-        Log.d("testParaGPS","readLastMarkerPos() path : "+file.getPath());
+        Log.d(TAG,"readLastMarkerPos() path : "+file.getPath());
         double dLastLat = 0d;
         double dLastLng = 0d;
 
         if (!file.exists()) {
-            Log.d("testParaGPS","readLastMarkerPos() file not exist");
+            Log.d(TAG,"readLastMarkerPos() file not exist");
             return null;
         }
         else {
@@ -211,7 +211,7 @@ public class GPSActivity extends AppCompatActivity implements MapView.CurrentLoc
                 eio.printStackTrace();
             }
             MapPoint.GeoCoordinate getPoint = new MapPoint.GeoCoordinate(dLastLat,dLastLng);
-            Log.d("testParaGPS", "readLastUser() property read Done : "+getPoint.latitude+", "+getPoint.longitude);
+            Log.d(TAG, "readLastUser() property read Done : "+getPoint.latitude+", "+getPoint.longitude);
             return getPoint;
         }
     }

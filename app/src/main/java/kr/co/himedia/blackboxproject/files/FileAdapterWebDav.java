@@ -90,7 +90,7 @@ public class FileAdapterWebDav extends RecyclerView.Adapter<FileAdapterWebDav.Fi
 
     public void setItems(ArrayList<FileWebDav> items){
         adapterFileList.addAll(items);
-        Log.d("testParaAdapterFileList","items size : "+adapterFileList.size());
+        Log.d(TAG,"items size : "+adapterFileList.size());
     }
 
     public FileWebDav getItem(int position){

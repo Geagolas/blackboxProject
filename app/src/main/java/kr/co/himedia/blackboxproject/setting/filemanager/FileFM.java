@@ -19,7 +19,7 @@ public class FileFM{
     String fileName;
     LocalDateTime time;
     long fileSize;
-    boolean protection = false;
+    boolean protection;
     boolean selected = false;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -51,26 +51,4 @@ public class FileFM{
         }
         return tmp+"";
     }
-//    private Object[] fileSizeMatcher(String fileSize){
-//        Object[] array = new Object[2];
-//        Matcher m = Pattern.compile("([0-9.]+)([KMG])").matcher(fileSize);
-//        array[0] = m.group(1);
-//        array[1] = m.group(2);
-//        return array;
-//    }
-
-//    private long fileSizeStrToLong(String fileSize) {
-//        Object[] oArray = fileSizeMatcher(fileSize);
-//        long lSize;
-//        String strUnit;
-//
-//        lSize = (long) oArray[0];
-//        strUnit = (String) oArray[1];
-//
-//        if(strUnit.contains("K")) lSize*=KB;
-//        else if(strUnit.contains("M")) lSize*=MB;
-//        else if(strUnit.contains("G")) lSize*=GB;
-//        return lSize;
-//    }
-
 }

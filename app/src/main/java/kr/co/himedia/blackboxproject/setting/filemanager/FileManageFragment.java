@@ -82,17 +82,17 @@ public class FileManageFragment extends Fragment {
 
         adapter.setOnItemClickListener(((holder, view1, position) -> {
             FileFM item = adapter.getItem(position);
-            Log.d("testPara",item.fileName+" selected");
-            Log.d("testPara", "selected protection : "+item.protection);
+            Log.d(TAG,item.fileName+" selected");
+            Log.d(TAG, "selected protection : "+item.protection);
             //selected file list에 파일이 없으면 추가하고 있으면 List에서 제거            
             if(!selectedFileList.contains(item)){
                 selectedFileList.add(item);
                 item.selected = true;
-                Log.d("testPara",item.fileName+" added");
+                Log.d(TAG,item.fileName+" added");
             }else {
                 item.selected = false;
                 selectedFileList.remove(item);
-                Log.d("testPara",item.fileName+" removed");
+                Log.d(TAG,item.fileName+" removed");
             }
             adapter.notifyItemChanged(position);
         }));
@@ -113,10 +113,10 @@ public class FileManageFragment extends Fragment {
                         int changedPos = adapter.adapterFileList.indexOf(fileFM);
                         fileFM.protection = !fileFM.protection;
                         adapter.notifyItemChanged(changedPos);
-                        Log.d("testPara", "isProtection : "+fileFM.fileName+fileFM.protection);
+                        Log.d(TAG, "isProtection : "+fileFM.fileName+fileFM.protection);
                     }
                     fileManager.setProtectFiles(selectedFileList);
-                    Log.d("testPara", "protect selected size : "+selectedFileList.size());
+                    Log.d(TAG, "protect selected size : "+selectedFileList.size());
                     try {
                         Thread.sleep(200);
                     } catch (InterruptedException e) {
@@ -128,7 +128,7 @@ public class FileManageFragment extends Fragment {
                     //download탭을 클릭시
                 //SelectedFileList에 파일 목록을 추가하고 URLDownloading으로 URL을 만들어서 호출.
                 case R.id.tabDownload:
-                    Log.d("testPara", "download selected size : "+selectedFileList.size());
+                    Log.d(TAG, "download selected size : "+selectedFileList.size());
                     for(FileFM fileFM : selectedFileList){
                         URLDownloading(Uri.parse(url+fileFM.fileName),fileFM.fileName);
                     }
@@ -139,7 +139,7 @@ public class FileManageFragment extends Fragment {
                 //SelectedFileList에 파일 목록을 추가하고 FileManager로 전달.
                 case R.id.tabDelete:
 //                    Snackbar.make(view,"작업을 시작합니다.\n 조금만 기다려주세요.",Snackbar.LENGTH_SHORT).show();
-                    Log.d("testPara", "delete selected size: "+selectedFileList.size());
+                    Log.d(TAG, "delete selected size: "+selectedFileList.size());
                     for(FileFM fileFM : selectedFileList){
                         adapter.notifyItemRemoved(adapter.adapterFileList.indexOf(fileFM));
                     }
@@ -186,7 +186,7 @@ public class FileManageFragment extends Fragment {
         super.onCreate(savedInstanceState);
         fileManager.getFileList();
         fileFMArrayList = fileManager.setArrayList();
-        Log.d("testPara","FM fragment FMArraySize : "+fileFMArrayList.size());
+        Log.d(TAG,"FM fragment FMArraySize : "+fileFMArrayList.size());
     }
 
     @Override
@@ -222,7 +222,7 @@ public class FileManageFragment extends Fragment {
         DownloadManager.Request request = new DownloadManager.Request(downloadUri);
         for( Map.Entry<String, String> entry : VideoActivity.header.entrySet() ){
             request.addRequestHeader(entry.getKey(),entry.getValue());
-            Log.d("testPara",entry.getKey()+" / "+entry.getValue());
+            Log.d(TAG,entry.getKey()+" / "+entry.getValue());
         }
         List<String> pathSegmentList = downloadUri.getPathSegments();
         request.setTitle("다운로드 항목");
