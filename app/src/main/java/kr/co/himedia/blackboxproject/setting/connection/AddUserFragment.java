@@ -65,19 +65,7 @@ public class AddUserFragment extends Fragment {
             editTextWebDAVIDPort.setText(setUser.getWebdav());
         }
 
-        //test user 정보를 editText에 입력
-        editTextUserName.setText("picamera");
-        editTextDNS.setText("http://geagolas.iptime.org");
-        editTextPiID.setText("picamera");
-        editTextPiPW.setText("12345");
-        editTextSshPort.setText("50022");
-        editTextStreamID.setText("dev");
-        editTextStreamPW.setText("dev1234");
-        editTextStreamPort.setText("58081");
-        editTextWebDAVID.setText("dev");
-        editTextWebDAVPW.setText("dev1234");
-        editTextWebDAVIDPort.setText("55080");
-
+      
         //확인 탭을 누르면 MainActivity의 CurrentUser의 정보가 입력된 정보로 바뀌고
         //변경된 정보를 property로 저장
         NavigationBarView navigationBarView = view.findViewById(R.id.addUserBottomBar);
